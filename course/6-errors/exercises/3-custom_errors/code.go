@@ -8,7 +8,11 @@ type divideError struct {
 	dividend float64
 }
 
-// ?
+
+func (d divideError) Error() string {
+	err := fmt.Sprintf("can not divide %.2f by zero", d.dividend)
+	return err
+}
 
 // don't edit below this line
 

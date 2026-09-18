@@ -16,7 +16,9 @@ type user struct {
 }
 
 func canSendMessage(mToSend messageToSend) bool {
-	// ?
+	if mToSend.recipient.name == ""  {
+		return false
+	}
 	return true
 }
 

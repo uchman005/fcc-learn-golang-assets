@@ -10,6 +10,13 @@ func pingPong(numPings int) {
 	pongs := make(chan struct{})
 	go ponger(pings, pongs)
 	go pinger(pings, pongs, numPings)
+
+	for range pings {
+		<-pings
+	}
+	for range pongs {
+		<-pongs
+	}
 }
 
 // TEST SUITE - Don't touch below this line
@@ -17,7 +24,7 @@ func pingPong(numPings int) {
 func pinger(pings, pongs chan struct{}, numPings int) {
 	go func() {
 		sleepTime := 50 * time.Millisecond
-		for i := 0; i < numPings; i++ {
+		for i := range numPings {
 			fmt.Println("ping", i, "sent")
 			pings <- struct{}{}
 			time.Sleep(sleepTime)

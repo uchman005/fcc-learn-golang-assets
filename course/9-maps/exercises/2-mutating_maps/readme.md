@@ -1,6 +1,6 @@
 # Mutations
 
-## Insert and element
+## Insert an element
 
 ```go
 m[key] = elem

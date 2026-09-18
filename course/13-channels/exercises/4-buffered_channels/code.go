@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func addEmailsToQueue(emails []string) chan string {
-	emailsToSend := make(chan string)
+	emailsToSend := make(chan string, len(emails))
 	for _, email := range emails {
 		emailsToSend <- email
 	}
@@ -13,7 +13,7 @@ func addEmailsToQueue(emails []string) chan string {
 // TEST SUITE - Don't Touch Below This Line
 
 func sendEmails(batchSize int, ch chan string) {
-	for i := 0; i < batchSize; i++ {
+	for range batchSize {
 		email := <-ch
 		fmt.Println("Sending email:", email)
 	}
